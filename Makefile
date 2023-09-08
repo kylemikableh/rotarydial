@@ -14,7 +14,7 @@ COREUTILS  = C:/Projects/coreutils/bin/
 
 DEVICE     = attiny85
 CLOCK      = 4000000
-PROGRAMMER = -c stk500 -P COM10 
+PROGRAMMER = -c usbtiny #-c stk500v1 -P COM10 
 SRCS       = main.c dtmf.c
 OBJS       = $(SRCS:.c=.o)
 FUSES      = -U lfuse:w:0xFD:m -U hfuse:w:0xDF:m -U efuse:w:0xFF:m
@@ -27,7 +27,7 @@ MKDIR      = $(COREUTILS)mkdir
 POSTCOMPILE = $(MV) $(DEPDIR)/$*.Td $(DEPDIR)/$*.d && touch $@
 
 AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
-COMPILE = avr-gcc -Wall -Os $(DEPFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
+COMPILE = avr-gcc -Wall -Os $(DEPFLAGS) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -std=c99
 
 all: rotarydial.hex
 
